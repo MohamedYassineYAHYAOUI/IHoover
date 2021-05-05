@@ -9,6 +9,7 @@ public class MyWindow extends JFrame{
 	public  MyWindow() {
 		super("app");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		System.out.println("test");
 	}
 	
 	
