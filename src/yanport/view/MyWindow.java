@@ -24,7 +24,7 @@ class MyWindow {
         frame.setContentPane(new MyWindow().StartPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
-
+        //test
         frame.setVisible(true);
     }
 
