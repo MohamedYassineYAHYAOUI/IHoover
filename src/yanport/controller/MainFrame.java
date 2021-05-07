@@ -2,31 +2,32 @@ package yanport.controller;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Objects;
 
-class MyWindow {
+class MainFrame {
     private JPanel StartPanel;
     private JButton launchButton;
     private JComboBox cardBox;
-    private JSpinner posYValue, gridLength, posXValue, gridWidth;
-    private JLabel posX, posY, length, width, card;
-
+    private JSpinner posYValue, gridWidth, posXValue, gridHeight;
+    private JLabel posX, posY, width, height, card;
     private JTextField instructions;
+    private final Dimension dimension;
 
-    MyWindow() {
-        launchButton.addActionListener(new Launch(posYValue, gridLength, posXValue, gridWidth, cardBox));
+    MainFrame(Dimension dimension) {
+        launchButton.addActionListener(new Launch(posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions));
+        this.dimension = dimension;
     }
 
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("IHoover");
-
-        frame.setContentPane(new MyWindow().StartPanel);
+    void initFrame(JFrame frame){
+        Objects.requireNonNull(frame);
+        frame.setContentPane(this.StartPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(dimension);
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
     }
+
 
 
     {
@@ -64,16 +65,16 @@ class MyWindow {
         defaultComboBoxModel1.addElement("West  (W)");
         cardBox.setModel(defaultComboBoxModel1);
         StartPanel.add(cardBox, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 20), null, 0, false));
+        height = new JLabel();
+        height.setText("height");
+        StartPanel.add(height, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, 59), null, 0, false));
+        gridWidth = new JSpinner();
+        StartPanel.add(gridWidth, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 30), new Dimension(100, 30), 0, false));
         width = new JLabel();
         width.setText("width");
-        StartPanel.add(width, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, 59), null, 0, false));
-        gridLength = new JSpinner();
-        StartPanel.add(gridLength, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 30), new Dimension(100, 30), 0, false));
-        length = new JLabel();
-        length.setText("length");
-        StartPanel.add(length, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(38, 100), null, 0, false));
-        gridWidth = new JSpinner();
-        StartPanel.add(gridWidth, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 30), new Dimension(100, 30), 0, false));
+        StartPanel.add(width, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(38, 100), null, 0, false));
+        gridHeight = new JSpinner();
+        StartPanel.add(gridHeight, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 30), new Dimension(100, 30), 0, false));
         posXValue = new JSpinner();
         StartPanel.add(posXValue, new com.intellij.uiDesigner.core.GridConstraints(2, 4, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 30), new Dimension(100, 30), 0, false));
         posYValue = new JSpinner();
