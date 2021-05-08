@@ -12,22 +12,23 @@ class MainFrame {
     private JLabel posX, posY, width, height, card;
     private JTextField instructions;
     private final Dimension dimension;
+    //private final String windowName;
 
-    MainFrame(Dimension dimension) {
-        launchButton.addActionListener(new Launch(posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions));
-        this.dimension = dimension;
+    MainFrame(HooverConfig config) {
+        Objects.requireNonNull(config);
+        launchButton.addActionListener(new MainFrameController(posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions, config)); //replace posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions, par des gett
+        this.dimension = config.getAppDimension();
     }
 
-    void initFrame(JFrame frame){
+    void initFrame(JFrame frame) {
         Objects.requireNonNull(frame);
-        frame.setContentPane(this.StartPanel);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(this.StartPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(dimension);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
     }
-
 
 
     {
@@ -47,7 +48,8 @@ class MainFrame {
     private void $$$setupUI$$$() {
         StartPanel = new JPanel();
         StartPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 6, new Insets(1, 1, 1, 1), -1, -1));
-        StartPanel.setEnabled(false);
+        StartPanel.setEnabled(true);
+        StartPanel.putClientProperty("html.disable", Boolean.FALSE);
         launchButton = new JButton();
         launchButton.setEnabled(true);
         launchButton.setHorizontalAlignment(0);
@@ -90,7 +92,7 @@ class MainFrame {
         instructions.setEnabled(true);
         instructions.setHorizontalAlignment(0);
         instructions.setText("instructions");
-        StartPanel.add(instructions, new com.intellij.uiDesigner.core.GridConstraints(4, 4, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), new Dimension(150, 30), 0, false));
+        StartPanel.add(instructions, new com.intellij.uiDesigner.core.GridConstraints(4, 3, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), new Dimension(150, 30), 0, false));
     }
 
     /**

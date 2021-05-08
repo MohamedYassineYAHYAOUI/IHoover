@@ -1,5 +1,6 @@
 package yanport.controller;
 
+import yanport.model.Directions;
 import yanport.model.UserInput;
 import yanport.view.UserView;
 
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 
-class Launch implements ActionListener {
+class MainFrameController extends JFrame implements ActionListener {
 
     private JPanel mainPanel;
     private JComboBox cardBox;
@@ -18,16 +19,20 @@ class Launch implements ActionListener {
     private UserInput model ;
     private final UserView view;
     private JTextField instructions;
+    private final HooverConfig config;
 
-    Launch(JSpinner posYValue, JSpinner gridWidth, JSpinner posXValue, JSpinner gridHeight, JComboBox cardBox, JPanel mainPanel, JTextField instructions){
+
+    MainFrameController(JSpinner posYValue, JSpinner gridWidth, JSpinner posXValue, JSpinner gridHeight, JComboBox cardBox, JPanel mainPanel, JTextField instructions, HooverConfig config){
         this.cardBox =  Objects.requireNonNull(cardBox);
+        this.posXValue =  Objects.requireNonNull(posXValue);
         this.posYValue =  Objects.requireNonNull(posYValue);
         this.gridWidth =  Objects.requireNonNull(gridWidth);
-        this.posXValue =  Objects.requireNonNull(posXValue);
         this.gridHeight =  Objects.requireNonNull(gridHeight);
         this.mainPanel = Objects.requireNonNull(mainPanel);
         this.instructions = Objects.requireNonNull(instructions);
-        this.view = new UserView(mainPanel);
+        this.config = Objects.requireNonNull(config);
+        this.view = new UserView(mainPanel, config);
+
     }
 
     /**
@@ -38,22 +43,20 @@ class Launch implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            model = checkUserValues();
-
-            //userValues();
-        }catch(IllegalArgumentException err){
+            model = checkUserValues(config);
+            view.initGrid(model);
+        }catch(IllegalArgumentException | IllegalStateException  err){
             view.errorPopUp(err.getMessage() );
         }
-
     }
 
-
-    private UserInput checkUserValues(){
-        var y = (int) posYValue.getValue();
-        var x = (int) posXValue.getValue();
+    private UserInput checkUserValues(HooverConfig config){
+        var y = (int) posYValue.getValue()-1;
+        var x = (int) posXValue.getValue()-1;
         var width = (int) gridWidth.getValue();
         var height = (int) gridHeight.getValue();
-        return UserInput.userModelFactory(x,y,width,height,instructions.getText());
+        var dir = Directions.labelToDirection((String) cardBox.getSelectedItem());
+        return UserInput.userModelFactory(x,y,width,height, dir, instructions.getText(), config);
     }
 
 }
