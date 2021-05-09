@@ -30,7 +30,7 @@ class DrawComponents extends JPanel {
             model.moveHoover();
             repaint();
             if(model.finishedInstruction()){ // check if the grid finished the instruction
-                view.popUp("Finished :\nx=" + model.getX() + " y=" + model.getY() + " Direction=" + model.getCurrentDir()); // pop up message for the user
+                view.popUp("Finished :\nx=" + (model.getX()+1) + " y=" + (model.getY()+1) + " Direction=" + model.getCurrentDir()); // pop up message for the user
                 ((Timer)event.getSource()).stop(); // stop the timer
             }
         });
