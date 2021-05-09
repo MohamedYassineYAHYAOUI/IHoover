@@ -1,19 +1,17 @@
 package yanport.view;
 
-import yanport.controller.IHoover;
-import yanport.model.Directions;
+
 import yanport.model.UserInput;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-import java.util.logging.Logger;
-
+/**
+ * application Grid class
+ */
 class Grid extends JFrame {
 
-    static private final Logger logger = Logger.getLogger(Grid.class.getName());
-    private boolean running;
     private final int margin;
     private final int rectWidth;
     private final int rectHeight;
@@ -21,10 +19,17 @@ class Grid extends JFrame {
     private final int lines;
     private HooverFrame hoover;
     private final Dimension dimension;
-   // private final JPanel drawingFrame;
 
+    /**
+     * Grid class constructor, this constructor is private to force user to pass by the factory methode
+     * @param dimension Dimension application dimensions
+     * @param margin grid outer margin
+     * @param rectWidth a case width
+     * @param rectHeight a case height
+     * @param columns number of grid columns
+     * @param lines number of grid lines
+     */
     private Grid(Dimension dimension, int margin, int rectWidth, int rectHeight, int columns, int lines){
-        this.running = true;
         this.dimension = dimension;
         this.margin = margin;
         this.rectWidth = rectWidth;
@@ -33,6 +38,16 @@ class Grid extends JFrame {
         this.lines = lines;
     }
 
+    /**
+     * factory methode for the Grid class, calculate a grid's case width and height and initialize
+     * the grid frame
+     * @param windowName window name
+     * @param dimension Dimension application dimensions
+     * @param margin grid outer margin
+     * @param columns number of grid columns
+     * @param lines number of grid lines
+     * @return an initialized Grid object
+     */
     public static Grid gridFactory(Dimension dimension, String windowName, int margin, int columns, int lines){
         Objects.requireNonNull(dimension);
         Objects.requireNonNull(windowName);
@@ -44,33 +59,27 @@ class Grid extends JFrame {
         gridFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gridFrame.setPreferredSize(new Dimension(dimension.width+10, dimension.height+30));
         gridFrame.pack();
-        //gridFrame.add(drawingFrame);
         gridFrame.setResizable(false);
         gridFrame.setVisible(true);
         return gridFrame;
     }
 
-
-    void initComponents(UserInput model){
-        var gridFrame =  new GridFrame(dimension, columns, lines, rectWidth, rectHeight, margin);
+    /**
+     * initialize the components on the grid
+     * @param model model object of the application
+     * @param view View object of the application
+     */
+    void initComponents(UserInput model, UserView view){
+        var gridFrame =  new GridFrame( columns, lines, rectWidth, rectHeight, margin);
         hoover = new HooverFrame(model, rectWidth, rectHeight, dimension);
-        this.add(new DrawComponents(model, gridFrame,hoover  ));
+        this.add(new DrawComponents(model, view,gridFrame,hoover  ));
     }
 
+    /**
+     * dispose of the current frame
+     */
     void closeFrame(){
-        if(running){
-            throw new IllegalStateException("Closed active Frame");
-        }
         this.dispose();
-        logger.info("closing Frame");
     }
-
-    boolean isRunning(){
-        return running;
-    }
-
-
-
-
 
 }

@@ -2,6 +2,9 @@ package yanport.model;
 
 import java.util.Objects;
 
+/**
+ * Enum class for the different Directions
+ */
 public enum Directions {
     NORTH(0),
     EAST(1),
@@ -14,6 +17,12 @@ public enum Directions {
         this.code = code;
     }
 
+    /**
+     * change String label on the user interface to a Directions object
+     * if the label doesn't match a Direction, the methode throw an IAE
+     * @param label String - to change to a Direction
+     * @return Directions - a new Direction from the label
+     */
     public static Directions labelToDirection(String label){
         Objects.requireNonNull(label);
         switch (label){

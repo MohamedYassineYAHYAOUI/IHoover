@@ -4,22 +4,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Main frame class, allows user input and launch the application
+ */
 class MainFrame {
     private JPanel StartPanel;
-    private JButton launchButton;
-    private JComboBox cardBox;
-    private JSpinner posYValue, gridWidth, posXValue, gridHeight;
-    private JLabel posX, posY, width, height, card;
-    private JTextField instructions;
+    private JButton launchButton; // Start Button
+    private JComboBox cardBox; // Directions box
+    private JSpinner posYValue, gridWidth, posXValue, gridHeight; // values for the fields  "x", "y", "Width" anf "Height"
+    private JLabel posX, posY, width, height, card; // different Labels
+    private JTextField instructions; // Text field for the instructions
     private final Dimension dimension;
-    //private final String windowName;
 
+    /**
+     * constructor for the main frame, uses MainFrameController as an ActionListener for the launchButton
+     * @param config HooverConfig the application process
+     */
     MainFrame(HooverConfig config) {
         Objects.requireNonNull(config);
-        launchButton.addActionListener(new MainFrameController(posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions, config)); //replace posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions, par des gett
+        launchButton.addActionListener(new MainFrameController(posYValue, gridWidth, posXValue, gridHeight, cardBox, StartPanel, instructions, config));
         this.dimension = config.getAppDimension();
     }
 
+    /**
+     * the main frame initialisation methode
+     * @param frame new frame for the main window
+     */
     void initFrame(JFrame frame) {
         Objects.requireNonNull(frame);
         frame.add(this.StartPanel);
@@ -96,6 +106,7 @@ class MainFrame {
     }
 
     /**
+     *
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {

@@ -1,11 +1,12 @@
 package yanport.view;
 
-import yanport.model.Directions;
 import yanport.model.UserInput;
 
-import javax.swing.*;
 import java.awt.*;
 
+/**
+ * HooverFrame class, draw the different components of the Hoover in its different states
+ */
 class HooverFrame implements DrawingPanel {
 
     private final int rectWidth ,rectHeight;
@@ -13,6 +14,13 @@ class HooverFrame implements DrawingPanel {
     private final UserInput model;
 
 
+    /**
+     * constructor for the HooverFrame class
+     * @param dimension application window dimension
+     * @param rectWidth a case width
+     * @param rectHeight a case height
+     * @param model model object
+     */
     HooverFrame(UserInput model, int rectWidth, int rectHeight, Dimension dimension){
         this.model = model;
         this.rectWidth = rectWidth;
@@ -21,8 +29,15 @@ class HooverFrame implements DrawingPanel {
 
     }
 
+    /**
+     * draw the current direction the Hoover, the direction is represented by a circle facing
+     * the direction
+     * @param g Graphics
+     * @param posX current x position on the grid
+     * @param posY current y position on the gird
+     */
     private void drawDirection(Graphics g, int posX, int posY){
-        switch (model.getCurrentdir()){
+        switch (model.getCurrentDir()){
             case NORTH :
                 g.fillOval(posX + rectWidth/2, posY + 5, rectWidth/10,  rectHeight/10 );
                 break;
@@ -40,6 +55,11 @@ class HooverFrame implements DrawingPanel {
         }
     }
 
+    /**
+     * drawing methode of the Hoover, the hoover is represented by a circle in the current case,
+     * and a smaller circle within towards the current position
+     * @param g Graphics
+     */
     @Override
     public void drawComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
